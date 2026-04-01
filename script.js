@@ -1,87 +1,39 @@
-// Mobile Hamburger Menu - Fixed Working Implementation
+// Simple Mobile Navigation - Fixed Working Implementation
 document.addEventListener('DOMContentLoaded', function() {
-    // Select elements
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
     
-    // Debug check
-    console.log('Nav toggle found:', navToggle);
-    console.log('Nav menu found:', navMenu);
+    if (!navToggle || !navMenu) return;
     
-    // Check if elements exist
-    if (!navToggle || !navMenu) {
-        console.error('Navigation elements not found');
-        return;
-    }
-    
-    // Toggle menu function
     function toggleMenu(e) {
         e.preventDefault();
-        console.log('Menu clicked, current class:', navMenu.classList.contains('active'));
-        
-        // Toggle active class
         navMenu.classList.toggle('active');
-        
-        console.log('Menu toggled, new class:', navMenu.classList.contains('active'));
-        
-        // Animate hamburger
-        const spans = navToggle.querySelectorAll('span');
-        spans.forEach((span, index) => {
-            if (navMenu.classList.contains('active')) {
-                // Opening animation
-                if (index === 0) span.style.transform = 'rotate(45deg) translateY(8px)';
-                if (index === 1) span.style.opacity = '0';
-                if (index === 2) span.style.transform = 'rotate(-45deg) translateY(-8px)';
-            } else {
-                // Closing animation
-                span.style.transform = 'none';
-                span.style.opacity = '1';
-            }
-        });
     }
     
-    // Add click event
     navToggle.addEventListener('click', toggleMenu);
     
-    // Close menu when clicking on links
-    const navLinks = navMenu.querySelectorAll('a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
+    // Close menu when clicking links
+    navMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
             navMenu.classList.remove('active');
-            // Reset hamburger
-            const spans = navToggle.querySelectorAll('span');
-            spans.forEach(span => {
-                span.style.transform = 'none';
-                span.style.opacity = '1';
-            });
         });
     });
     
-    // Close menu when clicking outside
-    document.addEventListener('click', function(e) {
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
         if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
             navMenu.classList.remove('active');
-            // Reset hamburger
-            const spans = navToggle.querySelectorAll('span');
-            spans.forEach(span => {
-                span.style.transform = 'none';
-                span.style.opacity = '1';
-            });
         }
     });
 });
 
-// Optimized Smooth Scrolling
+// Smooth Scrolling
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
-            const offsetTop = target.offsetTop - 70; // Account for fixed navbar
-            window.scrollTo({
-                top: offsetTop,
-                behavior: 'smooth'
-            });
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     });
 });
