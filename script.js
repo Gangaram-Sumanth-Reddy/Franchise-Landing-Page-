@@ -1,40 +1,70 @@
-// Optimized Mobile Navigation
+// Mobile Navigation Toggle - Fixed
 document.addEventListener('DOMContentLoaded', function() {
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
     const navbar = document.querySelector('.navbar');
     const body = document.body;
     
-    // Optimized toggle function
+    // Check if elements exist
+    if (!navToggle || !navMenu) {
+        console.error('Navigation elements not found');
+        return;
+    }
+    
+    // Toggle mobile menu function
     function toggleMenu(e) {
         e.preventDefault();
         e.stopPropagation();
         
+        // Toggle active class
         const isActive = navMenu.classList.toggle('active');
         body.classList.toggle('nav-open');
         
-        // Optimized hamburger animation
+        // Animate hamburger menu
         const spans = navToggle.querySelectorAll('span');
         spans.forEach((span, index) => {
             if (!isActive) {
-                // Opening
+                // Opening animation
                 if (index === 0) span.style.transform = 'rotate(45deg) translateY(8px)';
                 if (index === 1) span.style.opacity = '0';
                 if (index === 2) span.style.transform = 'rotate(-45deg) translateY(-8px)';
             } else {
-                // Closing
+                // Closing animation
                 span.style.transform = 'none';
                 span.style.opacity = '1';
             }
         });
         
-        // Prevent body scroll
+        // Prevent body scroll when menu is open
         body.style.overflow = isActive ? 'hidden' : '';
     }
     
+    // Add click event to hamburger menu
     navToggle.addEventListener('click', toggleMenu);
     
-    // Close menu helpers
+    // Close menu when clicking on menu links
+    const navLinks = navMenu.querySelectorAll('a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            closeMenu();
+        });
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!navbar.contains(e.target) && navMenu.classList.contains('active')) {
+            closeMenu();
+        }
+    });
+    
+    // Close menu on escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+            closeMenu();
+        }
+    });
+    
+    // Close menu function
     function closeMenu() {
         navMenu.classList.remove('active');
         body.classList.remove('nav-open');
@@ -47,28 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Event delegation for menu links
-    navMenu.addEventListener('click', function(e) {
-        if (e.target.tagName === 'A') {
-            closeMenu();
-        }
-    });
-    
-    // Click outside to close
-    document.addEventListener('click', function(e) {
-        if (!navbar.contains(e.target) && navMenu.classList.contains('active')) {
-            closeMenu();
-        }
-    });
-    
-    // Escape key to close
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && navMenu.classList.contains('active')) {
-            closeMenu();
-        }
-    });
-    
-    // Optimized navbar scroll effect
+    // Enhanced navbar scroll effect
     let ticking = false;
     function updateNavbar() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
