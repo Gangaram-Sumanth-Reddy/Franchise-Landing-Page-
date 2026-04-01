@@ -43,7 +43,7 @@ p {
     margin-bottom: 0.75rem;
 }
 
-/* Clean Navigation - Fixed Alignment */
+/* Clean Navigation - Premium Desktop Alignment */
 .navbar {
     background: #fff;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -58,7 +58,7 @@ p {
 .nav-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 1rem 2.5rem;
+    padding: 0 3rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -67,6 +67,7 @@ p {
 
 .nav-logo {
     flex-shrink: 0;
+    margin-right: auto;
 }
 
 .nav-logo h2 {
@@ -76,30 +77,21 @@ p {
     margin: 0;
 }
 
-/* Mobile Navigation Menu - Fixed */
 .nav-menu {
-    display: none;
-    position: fixed;
-    left: -100%;
-    top: 4.375rem;
-    flex-direction: column;
-    background: #fff;
-    width: 100%;
-    text-align: center;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 27px rgba(0, 0, 0, 0.1);
-    padding: 1.25rem 0;
-    z-index: 999;
-}
-
-.nav-menu.active {
     display: flex;
-    left: 0;
+    position: static;
+    flex-direction: row;
+    background: none;
+    box-shadow: none;
+    padding: 0;
+    gap: 2rem;
+    align-items: center;
+    margin: 0 auto;
 }
 
 .nav-menu li {
     list-style: none;
-    margin: 0.5rem 0;
+    margin: 0;
 }
 
 .nav-menu a {
@@ -108,29 +100,12 @@ p {
     font-weight: 500;
     transition: all 0.3s ease;
     display: block;
-    padding: 1rem 2rem;
+    padding: 0.5rem 1rem;
     position: relative;
 }
 
 .nav-menu a:hover {
     color: #6f4e37;
-    background: #faf8f6;
-}
-
-.nav-menu a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0;
-    height: 2px;
-    background: #6f4e37;
-    transition: all 0.3s ease;
-    transform: translateX(-50%);
-}
-
-.nav-menu a:hover::after {
-    width: 80%;
 }
 
 .nav-toggle {
@@ -150,12 +125,12 @@ p {
     border-radius: 0.125rem;
 }
 
-/* Hero Section - Mobile First - Fixed Typography */
+/* Hero Section - Premium Desktop Layout */
 .hero {
     background: linear-gradient(135deg, #6f4e37 0%, #8b6f47 100%);
     color: white;
-    padding: 3.75rem 1.25rem;
-    min-height: auto;
+    padding: 5rem 3rem;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     position: relative;
@@ -178,53 +153,51 @@ p {
     margin: 0 auto;
     padding: 0;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    justify-content: space-between;
+    gap: 4rem;
     position: relative;
     z-index: 2;
     width: 100%;
-    text-align: center;
 }
 
 .hero-content {
-    max-width: 90%;
-    text-align: center;
-    width: 100%;
-    margin: 0 auto;
+    max-width: 35rem;
+    text-align: left;
+    flex-shrink: 0;
+    padding-right: 2rem;
 }
 
 .hero-content h1 {
-    font-size: 1.625rem;
-    margin-bottom: 0.75rem;
-    line-height: 1.1;
+    font-size: 3.125rem;
+    margin-bottom: 1.25rem;
+    line-height: 1.2;
     font-weight: 700;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    word-wrap: break-word;
 }
 
 .hero-content p {
-    font-size: 0.875rem;
-    margin-bottom: 0.875rem;
-    line-height: 1.4;
+    font-size: 1.125rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
     opacity: 0.95;
-    word-wrap: break-word;
+    max-width: 100%;
 }
 
 .hero-image {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    margin-top: 0.875rem;
+    flex-shrink: 0;
+    width: 35rem;
 }
 
 .hero-img {
     width: 100%;
-    max-width: 100%;
+    max-width: 35rem;
     height: auto;
     aspect-ratio: 4/3;
-    border-radius: 0.75rem;
+    border-radius: 1rem;
     box-shadow: 0 1.25rem 2.5rem rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease;
     object-fit: cover;
@@ -234,31 +207,31 @@ p {
     transform: scale(1.02);
 }
 
-/* Professional CTA Buttons - Clean Mobile */
+/* Professional CTA Buttons - Premium Desktop */
 .cta-button {
     display: inline-block;
     text-decoration: none;
     border-radius: 1.5rem;
     font-weight: 600;
-    font-size: 0.875rem;
+    font-size: 1rem;
     transition: all 0.3s ease;
-    min-height: 2.5rem;
+    min-height: 2.75rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.625rem 1.25rem;
+    padding: 0.875rem 1.75rem;
     border: 2px solid transparent;
     cursor: pointer;
     text-align: center;
-    margin-top: 0.875rem;
+    margin-top: 1.5rem;
     background: #fff;
     color: #5a3e2b;
-    box-shadow: 0 0.375rem 1.25rem rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0.5rem 1.5625rem rgba(0, 0, 0, 0.15);
 }
 
 .cta-button:hover {
-    transform: scale(1.02);
-    box-shadow: 0 0.5rem 1.5625rem rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+    box-shadow: 0 0.75rem 2.1875rem rgba(0, 0, 0, 0.25);
     background: #f8f9fa;
 }
 
@@ -266,23 +239,22 @@ p {
     background: transparent;
     color: #fff;
     border-color: #fff;
-    box-shadow: 0 0.1875rem 0.75rem rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0.25rem 0.9375rem rgba(255, 255, 255, 0.2);
 }
 
 .cta-button.secondary:hover {
-    transform: scale(1.02);
+    transform: scale(1.05);
     background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0.375rem 1.25rem rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0.5rem 1.5625rem rgba(255, 255, 255, 0.3);
 }
 
 .cta-buttons {
     display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+    gap: 1rem;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    margin-top: 0.875rem;
+    margin-top: 1.5rem;
     width: 100%;
 }
 
@@ -755,7 +727,7 @@ h2 {
 
 /* 3D Button Emoji */
 .cta-button.secondary::before {
-    content: "📅";
+    content: "";
     margin-right: 0.5rem;
     font-size: 1.1em;
     filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.3));
@@ -850,44 +822,44 @@ h2 {
     color: #fff;
 }
 
-/* Desktop Responsive Design - Maintain Side-by-Side */
+/* Desktop Responsive Design - Premium Layout */
 @media (min-width: 769px) {
     /* Hero Section Desktop */
     .hero {
-        padding: 5rem 2.5rem;
+        padding: 5rem 3rem;
         min-height: 100vh;
     }
     
     .hero-container {
-        flex-direction: row;
+        align-items: center;
         justify-content: space-between;
-        gap: 3.75rem;
-        text-align: left;
+        gap: 4rem;
     }
     
     .hero-content {
-        max-width: 31.25rem;
+        max-width: 35rem;
         text-align: left;
-        flex-shrink: 0;
+        padding-right: 2rem;
     }
     
     .hero-content h1 {
-        font-size: 3rem;
-        margin-bottom: 1rem;
-    }
-    
-    .hero-content p {
-        font-size: 1.1rem;
+        font-size: 3.125rem;
         margin-bottom: 1.25rem;
     }
     
+    .hero-content p {
+        font-size: 1.125rem;
+        margin-bottom: 1.5rem;
+        max-width: 100%;
+    }
+    
     .hero-image {
-        flex-shrink: 0;
+        width: 35rem;
         margin-top: 0;
     }
     
     .hero-img {
-        max-width: 28.125rem;
+        max-width: 35rem;
         border-radius: 1rem;
     }
     
@@ -902,36 +874,28 @@ h2 {
     .cta-button {
         width: auto;
         max-width: none;
-        margin: 1.25rem 0.5rem 0;
+        margin: 1.5rem 0.5rem 0;
+        font-size: 1rem;
+        padding: 0.875rem 1.75rem;
+    }
+    
+    .cta-button:last-child {
+        margin-right: 0;
     }
     
     /* Navigation Desktop */
     .nav-menu {
-        display: flex;
-        position: static;
-        flex-direction: row;
-        background: none;
-        box-shadow: none;
-        padding: 0;
-        gap: 1.875rem;
-        align-items: center;
+        gap: 2rem;
+        margin: 0 auto;
     }
     
-    .nav-menu a {
-        padding: 0.5rem 0;
-        background: none;
+    /* Sections Desktop */
+    section {
+        padding: 5rem 3rem;
     }
     
-    .nav-menu a::after {
-        bottom: -0.3125rem;
-    }
-    
-    .nav-menu a:hover {
-        background: none;
-    }
-    
-    .nav-toggle {
-        display: none;
+    .container {
+        padding: 0 3rem;
     }
 }
 
