@@ -174,21 +174,17 @@ p {
     line-height: 1.15;
     font-weight: 700;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    word-wrap: break-word;
+    word-wrap: normal;
     max-width: 100%;
     overflow-wrap: normal;
     -webkit-hyphens: none;
     -ms-hyphens: none;
     hyphens: none;
-    text-align: center;
-}
-
-.hero-content p {
-    font-size: 1.125rem;
-    margin-bottom: 1.5rem;
-    line-height: 1.5;
-    opacity: 0.95;
-    max-width: 100%;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .hero-image {
@@ -926,9 +922,31 @@ h2 {
     }
     
     .hero-content h1 {
-        font-size: 1.625rem;
-        margin-bottom: 0.75rem;
-        line-height: 1.1;
+        font-size: 1.375rem;
+        margin-bottom: 0.625rem;
+        line-height: 1.15;
+        font-weight: 700;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        word-wrap: normal;
+        max-width: 100%;
+        overflow-wrap: normal;
+        -webkit-hyphens: none;
+        -ms-hyphens: none;
+        hyphens: none;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-clamp: 2;
+        -webkit-line-clamp: 2;
+        -moz-line-clamp: 2;
+        display: -webkit-box;
+        display: -moz-box;
+        display: box;
+        -webkit-box-orient: vertical;
+        -moz-box-orient: vertical;
+        box-orient: vertical;
     }
     
     .hero-content p {
@@ -939,7 +957,7 @@ h2 {
     
     .hero-image {
         width: 100%;
-        margin-top: 0.875rem;
+        margin-top: 1rem;
     }
     
     .hero-img {
@@ -958,8 +976,11 @@ h2 {
     .cta-button {
         width: 100%;
         max-width: 18.75rem;
-        padding: 0.625rem 1.25rem;
+        padding: 0.875rem 1.5rem;
         font-size: 0.875rem;
+        border-radius: 1.5rem;
+        min-height: 2.75rem;
+        margin: 0;
     }
     
     /* Navigation Mobile */
