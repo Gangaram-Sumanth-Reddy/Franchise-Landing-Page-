@@ -1,9 +1,12 @@
-// Mobile Navigation Toggle - Fixed
+// Mobile Hamburger Menu - Fixed Working Implementation
 document.addEventListener('DOMContentLoaded', function() {
+    // Select elements
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
-    const navbar = document.querySelector('.navbar');
-    const body = document.body;
+    
+    // Debug check
+    console.log('Nav toggle found:', navToggle);
+    console.log('Nav menu found:', navMenu);
     
     // Check if elements exist
     if (!navToggle || !navMenu) {
@@ -11,19 +14,20 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
     
-    // Toggle mobile menu function
+    // Toggle menu function
     function toggleMenu(e) {
         e.preventDefault();
-        e.stopPropagation();
+        console.log('Menu clicked, current class:', navMenu.classList.contains('active'));
         
         // Toggle active class
-        const isActive = navMenu.classList.toggle('active');
-        body.classList.toggle('nav-open');
+        navMenu.classList.toggle('active');
         
-        // Animate hamburger menu
+        console.log('Menu toggled, new class:', navMenu.classList.contains('active'));
+        
+        // Animate hamburger
         const spans = navToggle.querySelectorAll('span');
         spans.forEach((span, index) => {
-            if (!isActive) {
+            if (navMenu.classList.contains('active')) {
                 // Opening animation
                 if (index === 0) span.style.transform = 'rotate(45deg) translateY(8px)';
                 if (index === 1) span.style.opacity = '0';
@@ -34,75 +38,37 @@ document.addEventListener('DOMContentLoaded', function() {
                 span.style.opacity = '1';
             }
         });
-        
-        // Prevent body scroll when menu is open
-        body.style.overflow = isActive ? 'hidden' : '';
     }
     
-    // Add click event to hamburger menu
+    // Add click event
     navToggle.addEventListener('click', toggleMenu);
     
-    // Close menu when clicking on menu links
+    // Close menu when clicking on links
     const navLinks = navMenu.querySelectorAll('a');
     navLinks.forEach(link => {
         link.addEventListener('click', function() {
-            closeMenu();
+            navMenu.classList.remove('active');
+            // Reset hamburger
+            const spans = navToggle.querySelectorAll('span');
+            spans.forEach(span => {
+                span.style.transform = 'none';
+                span.style.opacity = '1';
+            });
         });
     });
     
     // Close menu when clicking outside
     document.addEventListener('click', function(e) {
-        if (!navbar.contains(e.target) && navMenu.classList.contains('active')) {
-            closeMenu();
+        if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
+            navMenu.classList.remove('active');
+            // Reset hamburger
+            const spans = navToggle.querySelectorAll('span');
+            spans.forEach(span => {
+                span.style.transform = 'none';
+                span.style.opacity = '1';
+            });
         }
     });
-    
-    // Close menu on escape key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && navMenu.classList.contains('active')) {
-            closeMenu();
-        }
-    });
-    
-    // Close menu function
-    function closeMenu() {
-        navMenu.classList.remove('active');
-        body.classList.remove('nav-open');
-        body.style.overflow = '';
-        
-        const spans = navToggle.querySelectorAll('span');
-        spans.forEach(span => {
-            span.style.transform = 'none';
-            span.style.opacity = '1';
-        });
-    }
-    
-    // Enhanced navbar scroll effect
-    let ticking = false;
-    function updateNavbar() {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        if (scrollTop > 50) {
-            navbar.classList.add('scrolled');
-            navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-            navbar.style.backdropFilter = 'blur(10px)';
-        } else {
-            navbar.classList.remove('scrolled');
-            navbar.style.background = '#fff';
-            navbar.style.backdropFilter = 'none';
-        }
-        
-        ticking = false;
-    }
-    
-    function requestTick() {
-        if (!ticking) {
-            requestAnimationFrame(updateNavbar);
-            ticking = true;
-        }
-    }
-    
-    window.addEventListener('scroll', requestTick, { passive: true });
 });
 
 // Optimized Smooth Scrolling
