@@ -1,4 +1,4 @@
-// Simple Mobile Navigation - Fixed Working Implementation
+// Simple Mobile Navigation - Enhanced Working Implementation
 document.addEventListener('DOMContentLoaded', function() {
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
@@ -7,22 +7,52 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function toggleMenu(e) {
         e.preventDefault();
+        e.stopPropagation();
+        
+        // Toggle active class
         navMenu.classList.toggle('active');
+        
+        // Animate hamburger
+        const spans = navToggle.querySelectorAll('span');
+        spans.forEach((span, index) => {
+            if (navMenu.classList.contains('active')) {
+                // Opening animation
+                if (index === 0) span.style.transform = 'rotate(45deg) translateY(8px)';
+                if (index === 1) span.style.opacity = '0';
+                if (index === 2) span.style.transform = 'rotate(-45deg) translateY(-8px)';
+            } else {
+                // Closing animation
+                span.style.transform = 'none';
+                span.style.opacity = '1';
+            }
+        });
     }
     
     navToggle.addEventListener('click', toggleMenu);
     
     // Close menu when clicking links
     navMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
+        link.addEventListener('click', function() {
             navMenu.classList.remove('active');
+            // Reset hamburger
+            const spans = navToggle.querySelectorAll('span');
+            spans.forEach(span => {
+                span.style.transform = 'none';
+                span.style.opacity = '1';
+            });
         });
     });
     
-    // Close when clicking outside
-    document.addEventListener('click', (e) => {
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
         if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
             navMenu.classList.remove('active');
+            // Reset hamburger
+            const spans = navToggle.querySelectorAll('span');
+            spans.forEach(span => {
+                span.style.transform = 'none';
+                span.style.opacity = '1';
+            });
         }
     });
 });
@@ -49,31 +79,72 @@ if (franchiseForm) {
         e.preventDefault();
         clearTimeout(validationTimeout);
         
-        // Reset previous states
-        const formGroups = document.querySelectorAll('.form-group');
-        formGroups.forEach(group => {
-            group.classList.remove('error', 'success');
-            const errorMsg = group.querySelector('.error-message');
-            if (errorMsg) errorMsg.textContent = '';
-        });
-        
-        // Get and validate form values
-        const formData = {
-            name: document.getElementById('name').value.trim(),
-            email: document.getElementById('email').value.trim(),
-            phone: document.getElementById('phone').value.trim(),
-            message: document.getElementById('message').value.trim()
-        };
+        // Basic validation
+        const formData = new FormData(franchiseForm);
+        const name = formData.get('name')?.trim();
+        const email = formData.get('email')?.trim();
+        const phone = formData.get('phone')?.trim();
+        const message = formData.get('message')?.trim();
         
         let isValid = true;
+        const errorMessages = [];
         
-        // Optimized validation
-        if (!validateField('name', formData.name, 2)) isValid = false;
-        if (!validateEmail(formData.email)) isValid = false;
-        if (!validatePhone(formData.phone)) isValid = false;
-        if (!validateField('message', formData.message, 10)) isValid = false;
+        // Validate name
+        if (!name || name.length < 2) {
+            isValid = false;
+            errorMessages.push('Please enter your full name');
+        }
         
-        // Handle submission
+        // Validate email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email || !emailRegex.test(email)) {
+            isValid = false;
+            errorMessages.push('Please enter a valid email address');
+        }
+        
+        // Validate phone
+        const phoneRegex = /^\d[\s\-\(\d[\d\s\-\)\d[\d\s\-\)\d$/;
+        if (!phone || !phoneRegex.test(phone.replace(/\s/g, ''))) {
+            isValid = false;
+            errorMessages.push('Please enter a valid phone number');
+        }
+        
+        // Validate message
+        if (!message || message.length < 10) {
+            isValid = false;
+            errorMessages.push('Please enter at least 10 characters');
+        }
+        
+        // Clear previous errors
+        const formGroups = franchiseForm.querySelectorAll('.form-group');
+        formGroups.forEach(group => {
+            const input = group.querySelector('input, textarea');
+            const errorMsg = group.querySelector('.error-message');
+            
+            if (input && errorMsg) {
+                input.style.borderColor = '#e8ddd0';
+                errorMsg.textContent = '';
+                errorMsg.style.height = '0';
+            }
+        });
+        
+        // Show new errors if any
+        if (!isValid && errorMessages.length > 0) {
+            const firstErrorField = franchiseForm.querySelector(`[name="${errorMessages[0].includes('name') ? 'name' : 
+                errorMessages[0].includes('email') ? 'email' : 
+                errorMessages[0].includes('phone') ? 'phone' : 'message'}"]`);
+            
+            if (firstErrorField) {
+                const errorMsg = firstErrorField.parentElement.querySelector('.error-message');
+                if (errorMsg) {
+                    errorMsg.textContent = errorMessages[0];
+                    errorMsg.style.height = 'auto';
+                    firstErrorField.style.borderColor = '#e74c3c';
+                }
+            }
+        }
+        
+        // Submit if valid
         if (isValid) {
             submitForm();
         }
