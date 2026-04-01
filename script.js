@@ -1,21 +1,36 @@
-// Simple Mobile Navigation - Fixed Working Implementation
+// Mobile Navigation - Fixed Working Implementation
 document.addEventListener('DOMContentLoaded', function() {
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
     
-    if (!navToggle || !navMenu) return;
+    if (!navToggle || !navMenu) {
+        console.error('Navigation elements not found');
+        return;
+    }
     
     function toggleMenu(e) {
         e.preventDefault();
+        e.stopPropagation();
+        console.log('Menu toggled, current state:', navMenu.classList.contains('active'));
         navMenu.classList.toggle('active');
+        console.log('New state:', navMenu.classList.contains('active'));
     }
     
     navToggle.addEventListener('click', toggleMenu);
     
     // Close menu when clicking links
     navMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
             navMenu.classList.remove('active');
+            // Smooth scroll to section
+            const targetId = link.getAttribute('href');
+            if (targetId && targetId.startsWith('#')) {
+                const target = document.querySelector(targetId);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
         });
     });
     
@@ -25,6 +40,13 @@ document.addEventListener('DOMContentLoaded', function() {
             navMenu.classList.remove('active');
         }
     });
+    
+    // Prevent menu from closing when clicking inside
+    navMenu.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+    
+    console.log('Mobile navigation initialized');
 });
 
 // Smooth Scrolling
